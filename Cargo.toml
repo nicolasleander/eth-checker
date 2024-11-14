@@ -1,0 +1,45 @@
+[package]
+name = "eth-checker"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
+debug = false
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[dependencies]
+# Async runtime and threading
+tokio = { version = "1.0", features = ["full"] }
+futures = "0.3"
+num_cpus = "1.15"
+
+# Ethereum functionality
+ethers = { version = "2.0", features = ["rustls"] }
+bip39 = "2.0"
+
+# CLI and config
+clap = { version = "4.4", features = ["derive"] }
+dotenv = "0.15"
+
+# Database
+rusqlite = { version = "0.32.1", features = ["bundled"] }
+
+# Output formatting
+colored = "2.0"
+thousands = "0.2"
+chrono = "0.4"
+
+# Utils
+rand = "0.8"
+hex = "0.4"
+
+[target.'cfg(unix)'.dependencies]
+jemallocator = "0.5"
